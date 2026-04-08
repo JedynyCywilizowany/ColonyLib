@@ -1,0 +1,19 @@
+Configs: {
+	ColonyDebugConfig: {
+		DisplayName: Debug Config
+
+		ReportPackets: {
+			Label: Report Packets
+			Tooltip: Broadcast in chat whenever a ColonyPacket is sent or received
+		}
+	}
+
+	ColonyConfig: {
+		DisplayName: Colony Config
+
+		DebugMode: {
+			Label: Debug Mode
+			Tooltip: ""
+		}
+	}
+}
