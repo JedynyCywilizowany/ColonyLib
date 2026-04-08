@@ -1,4 +1,5 @@
-Serves as a library for my other mods, others may also use it in thier mods.
+This is a library mod, does nothing on its own.
+Made for my other mods, others may also use it in thier mods.
 
 
 Features:
@@ -18,3 +19,7 @@ Features:
 >> AveragedInt = cast a float/double to int, randomly rounding it up or down so that the average stays the same
 >> UpdateTooltip = a single function for adding, modifying or removing a tooltip
 >> + a few more things that I didn't bother to list here
+
+- Debug Mode, made to help with debugging mods that depend on it
+>> Optionally log all uses of ColonyPacket in the chat
+>> Allows adding WorldGen Markers; permanent map icons to help locating own structures and other points of interest
