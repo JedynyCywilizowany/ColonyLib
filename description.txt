@@ -1,5 +1,8 @@
 This is a library mod, does nothing on its own.
-Made for my other mods, others may also use it in thier mods.
+Made for my other mods, though others may also use it in thier own.
+
+If you want to see my other mods, go there:
+https://steamcommunity.com/profiles/76561199099032737/myworkshopfiles/?appid=1281930&sort=score&browsefilter=myfiles&view=imagewall 
 
 
 Features:
