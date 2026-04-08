@@ -48,9 +48,9 @@ partial class ColonyLib
 				static int Insertion(Player drawPlayer)
 				{
 					var item=ColonyUtils.DummyItems[Item.bodyType[drawPlayer.body]];
-					if (item.ModItem is ColonyItem cywilsItem)
+					if (item.ModItem is ColonyItem colonyItem)
 					{
-						return cywilsItem.BodyArmorLegsOverlay(drawPlayer.Male);
+						return colonyItem.BodyArmorLegsOverlay(drawPlayer.Male);
 					}
 					return -1;
 				}
