@@ -6,6 +6,18 @@ Configs: {
 			Label: Report Packets
 			Tooltip: Broadcast in chat whenever a ColonyPacket is sent or received
 		}
+
+		Headers.WorldGenMarkers: WorldGen Markers
+
+		WorldGenMarkersCount: {
+			Label: WorldGen Markers Count
+			Tooltip: ""
+		}
+
+		ClearWorldGenMarkers: {
+			Label: Clear WorldGen Markers
+			Tooltip: ""
+		}
 	}
 
 	ColonyConfig: {

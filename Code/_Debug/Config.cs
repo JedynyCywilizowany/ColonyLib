@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Terraria;
 using Terraria.ModLoader.Config;
 
 namespace ColonyLib.Debug;
@@ -9,10 +10,10 @@ public class ColonyDebugConfig : ModConfig
 
 	public bool ReportPackets{get;set;}
 
-	
+	[Header("WorldGenMarkers")]
 	[JsonIgnore]
 	[ShowDespiteJsonIgnore]
-	public int WorldGenMarkersCount=>(ColonyDebugSystem.worldGenMarkers?.Count??0);
+	public string WorldGenMarkersCount=>(Main.gameMenu ? "n/a" : (ColonyDebugSystem.worldGenMarkers?.Count??0).ToString());
 	public bool ClearWorldGenMarkers
 	{
 		get=>false;

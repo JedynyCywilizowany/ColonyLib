@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -37,11 +38,18 @@ partial class ColonyDebugSystem
 	/// <summary>
 	/// Makes this world's map permanently display an icon with the given texture at the specified position.<br/>
 	/// Designed to help with locating points of interest when debugging WorldGen.<br/>
+	/// Does nothing if not in debug mode.<br/>
 	/// Currently does not work in multiplayer.
 	/// </summary>
+	[MethodImpl(MethodImplOptions.NoInlining)]
 	public static void AddWorldGenMarker(Point position,string texture)
 	{
-		worldGenMarkers[position.ToVector2()+new Vector2(0.5f)]=texture;
+		if (ColonyLib.IsDebugMode) worldGenMarkers[position.ToVector2()+new Vector2(0.5f)]=texture;
+	}
+	/// <inheritdoc cref="AddWorldGenMarker(Point,string)"/>
+	public static void AddWorldGenMarker(int x,int y,string texture)
+	{
+		AddWorldGenMarker(new(x,y),texture);
 	}
 
 	private const string SavingTag_WorldGenMarkers_Positions=nameof(worldGenMarkers)+"_Positions";
