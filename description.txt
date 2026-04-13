@@ -1,8 +1,8 @@
-This is a library mod, does nothing on its own.
+This is a library mod, does nothing by itself.
 Made for my other mods, though others may also use it in thier own.
 
-If you want to see my other mods, go there:
-https://steamcommunity.com/profiles/76561199099032737/myworkshopfiles/?appid=1281930&sort=score&browsefilter=myfiles&view=imagewall 
+If you want to see my other, non-library mods, go there:
+https://steamcommunity.com/profiles/76561199099032737/myworkshopfiles?browsefilter=myfiles&sortmethod=creationorder&section=items&appid=1281930&requiredtags%5B%5D=-1&requiredtags%5B%5D=-1&requiredtags%5B%5D=-1&excludedtags%5B%5D=Library
 
 
 Features:
@@ -19,10 +19,11 @@ Features:
 >> AddIfNotEmpty/AddIfNotDefault = only add an entry into a TagCompound if it's not empty/default, without having to check for it manually
 >> GetMapColorTile/GetMapColorWall = get the color of a tile/wall type on the map
 >> DummyItems/DummyNPCs = easy and efficient access to reusable instances of items/NPCs by type
->> AveragedInt = cast a float/double to int, randomly rounding it up or down so that the average stays the same
+>> AveragedInt = cast a float/double to int, randomly rounding it up or down so that it averages to the original value
 >> UpdateTooltip = a single function for adding, modifying or removing a tooltip
+>> ChebyshevDistance/ManhattanDistance = self-explanatory
 >> + a few more things that I didn't bother to list here
 
-- Debug Mode, made to help with debugging mods that depend on it
+- Debug Mode, made to help with debugging mods that depend on it:
 >> Optionally log all uses of ColonyPacket in the chat
 >> Allows adding WorldGen Markers; permanent map icons to help locating own structures and other points of interest
