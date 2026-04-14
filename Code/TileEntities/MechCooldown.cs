@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -22,11 +21,7 @@ public class MechCooldown : ModTileEntity
 		if (!TryGet(x,y,out MechCooldown tileEntity))
 		{
 			PlaceEntityNet(x,y,ModContent.TileEntityType<MechCooldown>());
-			if (!TryGet(x,y,out tileEntity))
-			{
-				Projectile.NewProjectile(new EntitySource_Misc(""),new Point(x,y).ToWorldCoordinates(),Vector2.Zero,ProjectileID.DaybreakExplosion,1,20);
-				return;
-			}
+			if (!TryGet(x,y,out tileEntity)) return;
 		}
 		tileEntity.timeLeft=cooldown;
 	}
@@ -40,11 +35,7 @@ public class MechCooldown : ModTileEntity
 		if (!TryGet(x,y,out MechCooldown tileEntity))
 		{
 			PlaceEntityNet(x,y,ModContent.TileEntityType<MechCooldown>());
-			if (!TryGet(x,y,out tileEntity))
-			{
-				Projectile.NewProjectile(new EntitySource_Misc(""),new Point(x,y).ToWorldCoordinates(),Vector2.Zero,ProjectileID.DaybreakExplosion,1,20);
-				return false;
-			}
+			if (!TryGet(x,y,out tileEntity)) return false;
 		}
 		if (tileEntity.timeLeft>0) return false;
 
