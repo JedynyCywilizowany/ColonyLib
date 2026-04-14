@@ -12,6 +12,7 @@ public static class ColonyContentUtils
 	{
 		return $"{type.Mod.Name}/Assets/{assetType}/{type.AssetCategory}/{name}";
 	}
+
 	public static string TexturePath<T>(this T type,string name) where T : ModType,IColonyContent
 	{
 		return AssetPath(type,"Textures",name);
@@ -24,5 +25,15 @@ public static class ColonyContentUtils
 	{
 		return TexturePath(type,type.Name);
 	}
+
+	public static string SoundPath<T>(this T type,string name) where T : ModType,IColonyContent
+	{
+		return AssetPath(type,"Sounds",name);
+	}
+	public static string OwnSoundPath<T>(this T type,string name) where T : ModType,IColonyContent
+	{
+		return SoundPath(type,$"{type.Name}/{name}");
+	}
+
 	public static readonly string NoTexture=nameof(ColonyLib)+"/Assets/Textures/None";
 }
