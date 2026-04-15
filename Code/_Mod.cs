@@ -1,5 +1,4 @@
 using System.IO;
-using ColonyLib.Config;
 using ColonyLib.ContentBases;
 using Terraria.ModLoader;
 
@@ -27,6 +26,4 @@ public partial class ColonyLib : Mod
 	{
 		ColonyPacketType.Receive(reader,whoAmI);
 	}
-	
-	public static bool IsDebugMode=>ModContent.GetInstance<ColonyConfig>().DebugMode;
 }
