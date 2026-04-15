@@ -12,7 +12,8 @@ public partial class ColonyLib : Mod
 	public override void Load()
 	{
 		LoadILEditsAndDetours();
-		//ColonyDebug.debuggerMod=
+		
+		if (ModLoader.TryGetMod("ColonyDebugger",out var mod)) ColonyDebug.debuggerMod=mod;
 	}
 	public override void Unload()
 	{

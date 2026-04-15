@@ -2,10 +2,7 @@ using System;
 using System.Buffers;
 using System.IO;
 using ColonyLib.Debug;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 
@@ -192,7 +189,7 @@ public class ColonyPacket : BinaryWriter
 
 			if (!Main.gameMenu&&ColonyDebug.ShouldReportPackets())
 			{
-				ColonyDebug.ReportPacket(this,type,toClient,ignoreClient);
+				ColonyDebug.ReportPacket(this,type,(int)OutStream.Length,toClient,ignoreClient);
 			}
 			
 			OutStream.Position=0;

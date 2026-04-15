@@ -1,5 +1,5 @@
-using System.IO;
-using Terraria.ModLoader;
+using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework;
 
 namespace ColonyLib.Debug;
 
@@ -11,6 +11,7 @@ partial class ColonyDebug
 	/// If one was already present on the same position, it will be replaced.<br/>
 	/// Can technically be used in-game, but not from multiplayer clients, and if from the server, <see cref="MessageID.WorldData"/> will need to be manually sent.
 	/// </summary>
+	[MethodImpl(MethodImplOptions.NoInlining)]
 	public static void AddWorldGenMarker(Point position,string texture)
 	{
 	}
@@ -23,6 +24,7 @@ partial class ColonyDebug
 	/// <summary>
 	/// If a WorldGen Marker is present at this position, removes it.
 	/// </summary>
+	[MethodImpl(MethodImplOptions.NoInlining)]
 	public static void RemoveWorldGenMarker(Point position)
 	{
 	}
@@ -35,6 +37,7 @@ partial class ColonyDebug
 	/// <summary>
 	/// Removes all WorldGen Markers.
 	/// </summary>
+	[MethodImpl(MethodImplOptions.NoInlining)]
 	public static void ClearWorldGenMarkers()
 	{
 	}
