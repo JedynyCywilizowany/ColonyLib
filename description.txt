@@ -21,9 +21,8 @@ Features:
 >> DummyItems/DummyNPCs = easy and efficient access to reusable instances of items/NPCs by type
 >> AveragedInt = cast a float/double to int, randomly rounding it up or down so that it averages to the original value
 >> UpdateTooltip = a single function for adding, modifying or removing a tooltip
->> ChebyshevDistance/ManhattanDistance = self-explanatory
+>> ChebyshevDistance/ManhattanDistance = self-explanatory, supports: int, Point, float, Vector2
 >> + a few more things that I didn't bother to list here
 
-- Debug Mode, made to help with debugging mods that depend on it:
->> Optionally log all uses of ColonyPacket in the chat
->> Allows adding WorldGen Markers; permanent map icons to help locating own structures and other points of interest
+- Debug extension, made to help with debugging mods that depend on it:
+//link

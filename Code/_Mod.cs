@@ -1,5 +1,6 @@
 using System.IO;
 using ColonyLib.ContentBases;
+using ColonyLib.Debug;
 using Terraria.ModLoader;
 
 namespace ColonyLib;
@@ -11,6 +12,7 @@ public partial class ColonyLib : Mod
 	public override void Load()
 	{
 		LoadILEditsAndDetours();
+		//ColonyDebug.debuggerMod=
 	}
 	public override void Unload()
 	{
