@@ -134,20 +134,23 @@ partial class ColonyUtils
 		serializationStream.SetLength(0);
 		serializationStream.Position=0;
 
-		void SaveShortID(int id,IdDictionary search)
+		void SaveID(int id,IdDictionary search)
 		{
 			if (forSaving)
 			{
 				var success=search.TryGetName(id,out var name);
 				serStreamWriter.Write(success);
-				if (success) serStreamWriter.Write(name);
-				else serStreamWriter.Write((ushort)id);
+				if (success)
+				{
+					serStreamWriter.Write(name);
+					return;
+				}
 			}
-			else serStreamWriter.Write((ushort)id);
+			serStreamWriter.Write7BitEncodedInt(id);
 		}
 
-		SaveShortID(player.skinVariant,PlayerVariantID.Search);
-		SaveShortID(player.hair,HairID.Search);
+		SaveID(player.skinVariant,PlayerVariantID.Search);
+		SaveID(player.hair,HairID.Search);
 		serStreamWriter.Write((short)player.hairDye);
 		
 		serStreamWriter.WriteRGB(player.hairColor);
@@ -175,7 +178,7 @@ partial class ColonyUtils
 		serializationStream.Write(bytes);
 		serializationStream.Position=0;
 
-		int? LoadShortID(IdDictionary search,int? count=null)
+		int? LoadID(IdDictionary search,int? count=null)
 		{
 			int id;
 			if (fromSaving&&serStreamReader.ReadBoolean())
@@ -183,13 +186,13 @@ partial class ColonyUtils
 				if (search.TryGetId(serStreamReader.ReadString(),out id)) return id;
 				else return null;
 			}
-			id=serStreamReader.ReadUInt16();
+			id=serStreamReader.Read7BitEncodedInt();
 			if (id>=(count??search.Count)) return null;
 			else return id;
 		}
 
-		player.skinVariant=LoadShortID(PlayerVariantID.Search,PlayerVariantID.Count-2)??Main.rand.Next(PlayerVariantID.Count-2);
-		player.hair=LoadShortID(HairID.Search)??Main.rand.Next(HairLoader.Count);
+		player.skinVariant=LoadID(PlayerVariantID.Search,PlayerVariantID.Count-2)??Main.rand.Next(PlayerVariantID.Count-2);
+		player.hair=LoadID(HairID.Search)??Main.rand.Next(HairLoader.Count);
 		player.hairDye=serStreamReader.ReadInt16();
 		
 		player.hairColor=serStreamReader.ReadRGB();
