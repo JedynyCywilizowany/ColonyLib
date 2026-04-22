@@ -24,7 +24,7 @@ partial class ColonyUtils
 	public static ReadOnlySpan<byte> SerializeBools(ReadOnlySpan<bool> bools)
 	{
 		byteBuffer.Clear();
-		BitsByte bits=(byte)(bools.Length%8);
+		BitsByte bits=(byte)(bools.Length&7);
 		int currentBit=3;
 		foreach (var entry in bools)
 		{
@@ -38,7 +38,6 @@ partial class ColonyUtils
 			}
 		}
 		if (currentBit!=0) byteBuffer.Add(bits);
-		byteBuffer.Add((byte)currentBit);
 		return CollectionsMarshal.AsSpan(byteBuffer);
 	}
 	/// <inheritdoc cref="SerializeBools(ReadOnlySpan{bool})"/>
@@ -62,18 +61,14 @@ partial class ColonyUtils
 		foreach (byte entry in bytes)
 		{
 			BitsByte bits=entry;
-			boolBuffer.Add(bits[0]);
-			boolBuffer.Add(bits[1]);
-			boolBuffer.Add(bits[2]);
-			boolBuffer.Add(bits[3]);
-			boolBuffer.Add(bits[4]);
-			boolBuffer.Add(bits[5]);
-			boolBuffer.Add(bits[6]);
-			boolBuffer.Add(bits[7]);
+			for (int i=0;i<8;i++) boolBuffer.Add(bits[i]);
 		}
 		int newLength=boolBuffer.Count-3;
-		int lengthHeader=bytes[0]&7;
-		if (lengthHeader!=0) newLength+=lengthHeader-8;
+		int lengthHeader=((bytes[0])+3)&7;
+		if (lengthHeader!=0)
+		{
+			newLength-=(8-lengthHeader);
+		}
 		return CollectionsMarshal.AsSpan(boolBuffer).Slice(3,newLength);
 	}
 	/// <inheritdoc cref="DeserializeBools(ReadOnlySpan{byte})"/>
