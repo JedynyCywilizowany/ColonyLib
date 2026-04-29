@@ -146,7 +146,7 @@ partial class ColonyUtils
 
 		SaveID(player.skinVariant,PlayerVariantID.Search);
 		SaveID(player.hair,HairID.Search);
-		serStreamWriter.Write((short)player.hairDye);
+		serStreamWriter.Write7BitEncodedInt(player.hairDye);
 		
 		serStreamWriter.WriteRGB(player.hairColor);
 		serStreamWriter.WriteRGB(player.skinColor);
@@ -188,7 +188,7 @@ partial class ColonyUtils
 
 		player.skinVariant=LoadID(PlayerVariantID.Search,PlayerVariantID.Count-2)??Main.rand.Next(PlayerVariantID.Count-2);
 		player.hair=LoadID(HairID.Search)??Main.rand.Next(HairLoader.Count);
-		player.hairDye=serStreamReader.ReadInt16();
+		player.hairDye=serStreamReader.Read7BitEncodedInt();
 		
 		player.hairColor=serStreamReader.ReadRGB();
 		player.skinColor=serStreamReader.ReadRGB();
