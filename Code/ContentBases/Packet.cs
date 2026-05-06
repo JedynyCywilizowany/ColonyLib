@@ -18,16 +18,13 @@ public abstract class ColonyPacketType : ModType
 	{
 		return all[id];
 	}
-	public ushort ID{get;private set;}
-	internal static bool longerIDs;
+	public int ID{get;private set;}
 	protected sealed override void Register()
 	{
-		ID=(ushort)all.Length;
+		ID=all.Length;
 		Array.Resize(ref all,ID+1);
 		all[ID]=this;
 		ModTypeLookup<ColonyPacketType>.Register(this);
-
-		longerIDs=(ID>byte.MaxValue);
 	}
 	protected sealed override void ValidateType()
 	{
@@ -45,7 +42,6 @@ public abstract class ColonyPacketType : ModType
 	public ColonyPacket Get()
 	{
 		var p=new ColonyPacket(this);
-		//if (AutoRedistributed) p.Write((byte)Main.myPlayer);
 		OnCreated(p);
 		return p;
 	}
@@ -56,6 +52,7 @@ public abstract class ColonyPacketType : ModType
 	{
 		return ModContent.GetInstance<T>().Get();
 	}
+
 	private void Redistribute(BinaryReader reader,int sender,int length)
 	{
 		var startIndex=reader.BaseStream.Position;
@@ -89,13 +86,12 @@ public abstract class ColonyPacketType : ModType
 	
 	internal static void Receive(BinaryReader reader,int whoAmI)
 	{
-		var packetType=ByID(longerIDs ? reader.ReadUInt16() : reader.ReadByte());
+		var packetType=ByID(reader.Read7BitEncodedInt());
 		if (Main.dedServ)
 		{
 			if (packetType.AutoRedistributed)
 			{
-				int length=reader.ReadByte();
-				if (length==byte.MaxValue) length=reader.ReadUInt16();
+				int length=reader.Read7BitEncodedInt();
 
 				packetType.Redistribute(reader,whoAmI,length);
 			}
@@ -152,7 +148,7 @@ public abstract class ColonyPacketType : ModType
 }
 public class ColonyPacket : BinaryWriter
 {
-	private readonly ushort typeID;
+	private readonly int typeID;
 	internal byte origSender=byte.MaxValue;
 	private ModPacket? underlyingPacket;
 	internal ColonyPacket(ColonyPacketType packetType) : base(new MemoryStream(16))
@@ -167,24 +163,14 @@ public class ColonyPacket : BinaryWriter
 		if (underlyingPacket is null)
 		{
 			underlyingPacket=ColonyLib.Instance.GetPacket();
+			underlyingPacket.Write7BitEncodedInt(typeID);
 
 			var type=ColonyPacketType.ByID(typeID);
-
-			if (ColonyPacketType.longerIDs) underlyingPacket.Write(typeID);
-			else underlyingPacket.Write((byte)typeID);
 
 			if (type.AutoRedistributed)
 			{
 				if (Main.dedServ) underlyingPacket.Write(origSender);
-				else
-				{
-					if (OutStream.Length<byte.MaxValue) underlyingPacket.Write((byte)OutStream.Length);
-					else
-					{
-						underlyingPacket.Write(byte.MaxValue);
-						underlyingPacket.Write((ushort)OutStream.Length);
-					}
-				}
+				else underlyingPacket.Write7BitEncodedInt((int)OutStream.Length);
 			}
 
 			if (!Main.gameMenu&&ColonyDebug.ShouldReportPackets())
