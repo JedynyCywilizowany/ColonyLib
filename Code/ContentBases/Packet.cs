@@ -9,7 +9,8 @@ using Terraria.ModLoader.Core;
 namespace ColonyLib.ContentBases;
 
 /// <summary>
-/// Designed to help with managing mod packets
+/// Designed to help with managing mod packets.<br/>
+/// Inherit this type <b>(not <see cref="ColonyPacket"/>!)</b> to make a new packet type.
 /// </summary>
 public abstract class ColonyPacketType : ModType
 {
@@ -146,12 +147,19 @@ public abstract class ColonyPacketType : ModType
 		throw new NotImplementedException($"{FullName} does not support handling on the {(Main.dedServ ? "server" : "client")}.");
 	}
 }
-public class ColonyPacket : BinaryWriter
+/// <summary>
+/// Represents an instance of <see cref="ColonyPacketType"/>, used similarly to <see cref="ModPacket"/>.<br/>
+/// <br/>
+/// This is the packet instance, <b>not the packet type! Do not inherit!</b><br/>
+/// To make a packet type, inherit <see cref="ColonyPacketType"/> instead.<br/>
+/// This class is sealed to ensure there is no confusion.
+/// </summary>
+public sealed class ColonyPacket : BinaryWriter
 {
 	private readonly int typeID;
 	internal byte origSender=byte.MaxValue;
 	private ModPacket? underlyingPacket;
-	internal ColonyPacket(ColonyPacketType packetType) : base(new MemoryStream(16))
+	internal ColonyPacket(ColonyPacketType packetType) : base(new MemoryStream(256))
 	{
 		typeID=packetType.ID;
 	}
