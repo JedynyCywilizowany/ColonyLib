@@ -47,7 +47,7 @@ public abstract class ColonyPacketType : ModType
 		return p;
 	}
 	/// <summary>
-	/// Used to get a packet of the given type.<br/>
+	/// Used to get a packet of the specified type.<br/>
 	/// </summary>
 	public static ColonyPacket Get<T>() where T : ColonyPacketType
 	{
@@ -163,6 +163,14 @@ public sealed class ColonyPacket : BinaryWriter
 	{
 		typeID=packetType.ID;
 	}
+	/// <summary>
+	/// Used to get a packet of the specified type.<br/>
+	/// </summary>
+	public static ColonyPacket Get<T>() where T : ColonyPacketType
+	{
+		return ColonyPacketType.Get<T>();
+	}
+	
 	/// <summary>
 	/// Similar to <see cref="ModPacket.Send"/>
 	/// </summary>
