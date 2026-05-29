@@ -119,6 +119,35 @@ partial class ColonyUtils
 	{
 		if (!EqualityComparer<T>.Default.Equals(value,default)) tag.Add(key,value);
 	}
+	/// <summary>
+	/// If the <paramref name="value"/> is not equal to <paramref name="defaultVal"/>, adds it to the <paramref name="tag"/>.
+	/// </summary>
+	/// <typeparam name="T">Type of the <paramref name="value"/>.</typeparam>
+	/// <param name="tag">The tag to add to.</param>
+	/// <param name="key">The key.</param>
+	/// <param name="value">The value to add.</param>
+	/// <param name="defaultVal">The default value.</param>
+	public static void AddIfNotDefault<T>(this TagCompound tag,string key,T value,T defaultVal) where T : struct
+	{
+		if (!EqualityComparer<T>.Default.Equals(value,defaultVal)) tag.Add(key,value);
+	}
+
+	/// <summary>
+	/// If the <paramref name="value"/> is not null, adds it to the <paramref name="tag"/>.
+	/// </summary>
+	/// <typeparam name="T">Type of the <paramref name="value"/>.</typeparam>
+	/// <param name="tag">The tag to add to.</param>
+	/// <param name="key">The key.</param>
+	/// <param name="value">The value to add.</param>
+	public static void AddIfNotNull<T>(this TagCompound tag,string key,T? value) where T : class
+	{
+		if (value is not null) tag.Add(key,value);
+	}
+	/// <inheritdoc cref="AddIfNotNull{T}(TagCompound,string,T)"/>
+	public static void AddIfNotNull<T>(this TagCompound tag,string key,T? value) where T : struct
+	{
+		if (value.HasValue) tag.Add(key,value.Value);
+	}
 
 	/// <summary>
 	/// Efficiently serializes the player's gender, body type, hair style, colors and hair dye.
