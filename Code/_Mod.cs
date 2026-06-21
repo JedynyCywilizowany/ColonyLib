@@ -18,7 +18,6 @@ public partial class ColonyLib : Mod
 	public override void Unload()
 	{
 		ColonyUtils.RevertArrayModifications();
-		this.AutoUnload();
 	}
 	public override void PostSetupContent()
 	{

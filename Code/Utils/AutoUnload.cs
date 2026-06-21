@@ -10,44 +10,54 @@ namespace ColonyLib;
 
 partial class ColonyUtils
 {
-	/// <summary>
-	/// Sets all static fields in all types from the given mod's assembly to null or default.<br/>
-	/// Intended to be used with <c>this</c> at the end of <see cref="Mod.Unload"/>.<br/>
-	/// Does it help in any way? I don't know ¯\_(ツ)_/¯
-	/// </summary>
+	[Obsolete("I don't think there was ever a reason for this to exist in the first place")]
 	[MethodImpl(MethodImplOptions.NoInlining)]
 	public static void AutoUnload(this Mod mod)
 	{
+		// - Old summary
+		// Sets all static fields in all types from the given mod's assembly to null or default.<br/>
+		// Intended to be used with <c>this</c> at the end of <see cref="Mod.Unload"/>.<br/>
+		// Does it help in any way? I don't know ¯\_(ツ)_/¯
+
+		/*
 		var start=DateTime.UtcNow;
 		int unloadedFields=0;
 		int unloadedTypes=0;
 		StringBuilder logged=new($"-----( {nameof(AutoUnload)} for {mod.Name}... )-----");
-		Parallel.ForEach(AssemblyManager.GetLoadableTypes(mod.Code),(type)=>
+		try
 		{
-			if (!type.ContainsGenericParameters)
+			Parallel.ForEach(AssemblyManager.GetLoadableTypes(mod.Code),(type)=>
 			{
-				int unloadedFieldsInType=0;
-				StringBuilder? subLogged=null;
-				foreach (var field in type.GetFields(BindingFlags.Static|BindingFlags.DeclaredOnly|BindingFlags.Public|BindingFlags.NonPublic))
+				if (!type.ContainsGenericParameters)
 				{
-					if (!field.IsLiteral&&!field.IsInitOnly)
+					int unloadedFieldsInType=0;
+					StringBuilder? subLogged=null;
+					foreach (var field in type.GetFields(BindingFlags.Static|BindingFlags.DeclaredOnly|BindingFlags.Public|BindingFlags.NonPublic))
 					{
-						field.SetValue(null,null);
+						if (!field.IsLiteral&&!field.IsInitOnly)
+						{
+							field.SetValue(null,null);
 
-						unloadedFieldsInType++;
-						subLogged??=new($"\n<{type.Name}>");
-						subLogged.AppendJoin("","\n    ",field.Name);
+							unloadedFieldsInType++;
+							subLogged??=new($"\n<{type.Name}>");
+							subLogged.AppendJoin("","\n    ",field.Name);
+						}
+					}
+					if (subLogged is not null) lock (logged)
+					{
+						unloadedFields+=unloadedFieldsInType;
+						unloadedTypes++;
+						logged.Append(subLogged);
 					}
 				}
-				if (subLogged is not null) lock (logged)
-				{
-					unloadedFields+=unloadedFieldsInType;
-					unloadedTypes++;
-					logged.Append(subLogged);
-				}
-			}
-		});
-		logged.Append($"\n-----( {nameof(AutoUnload)} for {mod.Name} unloaded {unloadedFields} fields from {unloadedTypes} types in {(int)(DateTime.UtcNow - start).TotalMilliseconds} ms )-----");
+			});
+			logged.Append($"\n-----( {nameof(AutoUnload)} for {mod.Name} unloaded {unloadedFields} fields from {unloadedTypes} types in {(int)(DateTime.UtcNow - start).TotalMilliseconds} ms )-----");
+		}
+		catch
+		{
+			logged.Append($"\n-----( {nameof(AutoUnload)} for {mod.Name} failed after {(int)(DateTime.UtcNow - start).TotalMilliseconds} ms )-----");
+		}
 		mod.Logger.Debug(logged);
+		*/
 	}
 }
