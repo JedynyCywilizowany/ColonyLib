@@ -5,5 +5,5 @@ namespace ColonyLib.ContentBases;
 public abstract class ColonyProjectile : ModProjectile,IColonyContent
 {
 	string IColonyContent.AssetCategory=>"Projectiles";
-	public override string Texture=>this.DefaultTexturePath();
+	public override string Texture=>this.ContentTexturePath();
 }
