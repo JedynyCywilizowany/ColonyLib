@@ -1,0 +1,7 @@
+<doc>
+	<member name='CustomAssetPath'>
+		Gets the path to assets according to my convention.<br/>
+		Functions with <paramref name="assetType"/> already set are available, so this should only be used for types that are not covered.<br/>
+		<br/>
+	</member>
+</doc>

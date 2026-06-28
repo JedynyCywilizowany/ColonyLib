@@ -1,5 +1,5 @@
 This is a library mod, does nothing by itself.
-Made for my other mods, though others may also use it in thier own.
+Made for my other mods, and therefore contains very specific stuff, though others may also use it in thier own if they wish.
 
 If you want to see my other, non-library mods, go there:
 https://steamcommunity.com/profiles/76561199099032737/myworkshopfiles?browsefilter=myfiles&sortmethod=creationorder&section=items&appid=1281930&requiredtags%5B%5D=-1&requiredtags%5B%5D=-1&requiredtags%5B%5D=-1&excludedtags%5B%5D=Library
@@ -10,19 +10,19 @@ Features:
 - ColonyPacketType, a ModType to help with managing mod packets
 
 - New base types for content, prefixed with "Colony":
->> optionally change the default texture path to my own convention
+>> reduce the need for hard-coding asset paths, though works according to my convention, which differs from the usual approach.
 >> ColonyItem lets body armor draw extra textures over legs, without replacing them like robes do. This effect is hard-coded into some vanilla vanity items, but there is no official mod support for it.
 
 - ColonyUtils:
->> RevertibleModify = modify an array (usually an ID set), then automatically revert the change when mods unload
->> SerializeBools/DeserializeBools = efficiently serialize/deserialize arrays and lists of booleans
->> AddIfNotEmpty/AddIfNotDefault = only add an entry into a TagCompound if it's not empty/default, without having to check for it manually
->> GetMapColorTile/GetMapColorWall = get the color of a tile/wall type on the map
->> DummyItems/DummyNPCs = easy and efficient access to reusable instances of items/NPCs by type
->> AveragedInt = cast a float/double to int, randomly rounding it up or down so that it averages to the original value
->> UpdateTooltip = a single function for adding, modifying or removing a tooltip
->> ChebyshevDistance/ManhattanDistance = self-explanatory, supports: int, Point, float, Vector2
->> + a few more things that I didn't bother to list here
+>> RevertibleModify = modify an array (usually an ID set), then automatically revert the change when mods unload.
+>> SerializeBools/DeserializeBools = efficiently serialize/deserialize arrays and lists of booleans.
+>> AddIfNotEmpty/AddIfNotDefault = only add an entry into a TagCompound if it's not empty/default, without having to check for it manually.
+>> GetMapColorTile/GetMapColorWall = get the color of a tile/wall type on the map.
+>> DummyItems/DummyNPCs = easy and efficient access to reusable instances of items/NPCs by type.
+>> AveragedInt = cast a float/double to int, randomly rounding it up or down so that it averages to the original value.
+>> UpdateTooltip = a single function for adding, modifying or removing a tooltip.
+>> ChebyshevDistance/ManhattanDistance = self-explanatory, supports: int, Point, float, Vector2.
+>> + a few more things that I didn't bother to list here.
 
-- Debug extension, made to help with debugging mods that depend on this library:
+- Debug extension, made to help with debugging mods that depend on this library (even more specific, though):
 https://steamcommunity.com/sharedfiles/filedetails/?id=3707453822
