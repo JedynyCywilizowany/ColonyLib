@@ -4,4 +4,11 @@
 		Functions with <paramref name="assetType"/> already set are available, so this should only be used for types that are not covered.<br/>
 		<br/>
 	</member>
+	<member name='SetShader'>
+		Ends the <paramref name="spriteBatch"/> and begins it with the given <paramref name="effect"/>, the right scale and other parameters as defaults.<br/>
+		<br/>
+	</member>
+	<member name='ResetShader'>
+		Like the respective SetShader variant, but sets the effect to null.
+	</member>
 </doc>
