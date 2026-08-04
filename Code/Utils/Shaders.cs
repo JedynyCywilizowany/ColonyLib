@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.Shaders;
 
 namespace ColonyLib;
 
@@ -66,5 +67,23 @@ partial class ColonyUtils
 	public static void ResetShaderUnscaled(this SpriteBatch spriteBatch)
 	{
 		SetShaderUnscaled(spriteBatch,null!);
+	}
+
+	/// <summary>
+	/// Calls UseColor with the provided <paramref name="color"/>, and UseOpacity with the <paramref name="color"/>'s alpha converted into a float in the range 0-1
+	/// </summary>
+	public static MiscShaderData UseColorAndOpacity(this MiscShaderData shader,Color color)
+	{
+		return shader.UseColor(color).UseOpacity(color.A/(float)byte.MaxValue);
+	}
+	/// <inheritdoc cref="UseColorAndOpacity(MiscShaderData,Color)"/>
+	public static ArmorShaderData UseColorAndOpacity(this ArmorShaderData shader,Color color)
+	{
+		return shader.UseColor(color).UseOpacity(color.A/(float)byte.MaxValue);
+	}
+	/// <inheritdoc cref="UseColorAndOpacity(MiscShaderData,Color)"/>
+	public static ScreenShaderData UseColorAndOpacity(this ScreenShaderData shader,Color color)
+	{
+		return shader.UseColor(color).UseOpacity(color.A/(float)byte.MaxValue);
 	}
 }
