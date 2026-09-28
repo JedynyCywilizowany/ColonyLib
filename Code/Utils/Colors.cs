@@ -6,7 +6,7 @@ namespace ColonyLib;
 
 partial class ColonyUtils
 {
-	public static Color RandomColor(UnifiedRandom randomizer)
+	public static Color RandomColor(this UnifiedRandom randomizer)
 	{
 		Color color=default;
 		color.PackedValue=((uint)randomizer.Next(0x00ffffff+1))|0xff000000;
@@ -17,7 +17,7 @@ partial class ColonyUtils
 		return RandomColor(Main.rand);
 	}
 
-	public static Color InvertedColor(Color color)
+	public static Color InvertedColor(this Color color)
 	{
 		Color output=default;
 		output.PackedValue=color.PackedValue^0x00ffffff;
