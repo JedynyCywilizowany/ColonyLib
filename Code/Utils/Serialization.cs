@@ -52,7 +52,7 @@ partial class ColonyUtils
 		return SerializeBools(CollectionsMarshal.AsSpan(bools));
 	}
 	/// <summary>
-	/// Deserializes a collection of bools from bytes.<br/>
+	/// Deserializes the output of <see cref="SerializeBools"/> back into bools.<br/>
 	/// Expects a header to more accurately retrieve the original length (otherwise it would always be a multiple of 8), so it should only be used with the output from <see cref="SerializeBools"/>.
 	/// </summary>
 	public static ReadOnlySpan<bool> DeserializeBools(ReadOnlySpan<byte> bytes)
@@ -81,6 +81,64 @@ partial class ColonyUtils
 	public static ReadOnlySpan<bool> DeserializeBools(this List<byte> bytes)
 	{
 		return DeserializeBools(CollectionsMarshal.AsSpan(bytes));
+	}
+	/// <summary>
+	/// Serializes a collection of bools into bytes.<br/>
+	/// Unlike <see cref="SerializeBools"/>, does not add a header, saving a few bits at the cost of being suitable only if the exact length will be known during deserialization.
+	/// </summary>
+	public static ReadOnlySpan<byte> SerializeBoolsStatic(ReadOnlySpan<bool> bools)
+	{
+		byteBuffer.Clear();
+		BitsByte bits=0;
+		int currentBit=0;
+		foreach (var entry in bools)
+		{
+			bits[currentBit]=entry;
+
+			currentBit++;
+			if (currentBit==8)
+			{
+				byteBuffer.Add(bits);
+				currentBit=0;
+			}
+		}
+		if (currentBit!=0) byteBuffer.Add(bits);
+		return CollectionsMarshal.AsSpan(byteBuffer);
+	}
+	/// <summary>
+	/// Deserializes a collection of bools from bytes.<br/>
+	/// Unlike <see cref="DeserializeBools"/>, cannot infer the original length from a header, so it needs to be specified.
+	/// </summary>
+	public static ReadOnlySpan<bool> DeserializeBoolsStatic(ReadOnlySpan<byte> bytes,int length)
+	{
+		boolBuffer.Clear();
+		foreach (byte entry in bytes)
+		{
+			BitsByte bits=entry;
+			for (int i=0;i<8;i++)
+			{
+				if ((length--)==0) goto end;
+				boolBuffer.Add(bits[i]);
+			}
+		}
+		end:
+		return CollectionsMarshal.AsSpan(boolBuffer);
+	}
+	/// <inheritdoc cref="DeserializeBoolsStatic(ReadOnlySpan{byte},int)"/>
+	public static ReadOnlySpan<bool> DeserializeBoolsStatic(BinaryReader reader,int length)
+	{
+		boolBuffer.Clear();
+		for (;;)
+		{
+			BitsByte bits=reader.ReadByte();
+			for (int i=0;i<8;i++)
+			{
+				if ((length--)==0) goto end;
+				boolBuffer.Add(bits[i]);
+			}
+		}
+		end:
+		return CollectionsMarshal.AsSpan(boolBuffer);
 	}
 
 	/// <summary>
